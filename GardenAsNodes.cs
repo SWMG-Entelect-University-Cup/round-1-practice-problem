@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntelectUniCup_PractiveProblem1
 {
-	public class Garden<T>
+	public class GardenAsNodes<T>
 	{
 		private class Vegetable
 		{
@@ -29,7 +29,7 @@ namespace EntelectUniCup_PractiveProblem1
 
 		private Vegetable[] Vegetables;
 
-		public Garden()
+		public GardenAsNodes()
 		{
 			Vegetables = new Vegetable[0];
 		}
@@ -82,5 +82,33 @@ namespace EntelectUniCup_PractiveProblem1
 
 			return false;
 		}
+
+		public List<String> GetNeighbours(String _Vegetable)
+		{
+			Vegetable vegetable = GetVegetable(_Vegetable);
+			if (vegetable != null)
+				return vegetable.Neighbours.Select(neighbour => neighbour.Name).ToList();
+			else
+				return null;
+		}
+
+		public List<KeyValuePair<String, int>> GetNeighboursWithPaths(String _Vegetable)
+		{
+			Vegetable vegetable = GetVegetable(_Vegetable);
+
+			if (vegetable != null)
+			{
+				List<KeyValuePair<String, int>> lstNeighbours = new List<KeyValuePair<String, int>>();
+				for (int i = 0; i < vegetable.Neighbours.Count; i++)
+					lstNeighbours.Add(new KeyValuePair<string, int>(vegetable.Neighbours[i].Name, vegetable.People[i]));
+
+				return lstNeighbours;
+
+			}
+			else
+				return null;
+		}
+
+
 	}
 }
